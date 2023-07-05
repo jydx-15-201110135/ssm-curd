@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.SalaryMapper">
+
+    <!--List<EmpSalary> getAllEmpSanlary();-->
+    <select id="getAllEmpSalary" resultType="com.atguigu.crud.bean.EmpSalary">
+        SELECT * FROM emp_salary
+    </select>
+
+    <!--int addEmpSalary(EmpSalary empSalary);-->
+    <insert id="addEmpSalary" >
+        insert INTO emp_salary
+            (emp_id,year,month ,wages_job,allowance,tax,award,fine,real_wages)
+        VALUES
+            (#{empId},#{year},#{month},#{wagesJob},#{allowance},#{tax},#{award},#{fine},#{realWages})
+    </insert>
+
+    <select id="getEmpSalaryByEmpId" resultType="com.atguigu.crud.bean.EmpSalary">
+        select * FROM emp_salary where emp_id = #{empId}
+    </select>
+
+    <!--EmpSalary getEmpSalaryById(Integer id);-->
+    <select id="getEmpSalaryById" resultType="com.atguigu.crud.bean.EmpSalary">
+        SELECT * FROM emp_salary WHERE id = #{id}
+    </select>
+
+    <!--<delete id="deleteEmpSalary"></delete>-->
+    <delete id="deleteEmpSalary">
+        delete FROM emp_salary WHERE id = #{id}
+    </delete>
+
+    <update id="updataEmpSalaryByid">
+        UPDATE emp_salary SET
+                              emp_id = #{empId},
+                              year = #{year},
+                              month = #{month},
+                              wages_job = #{wagesJob},
+                              allowance = #{allowance},
+                              tax = #{tax},
+                              award = #{award},
+                              fine = #{find},
+                              real_wages = #{realWages}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updataEmpSalaryById" parameterType="com.atguigu.crud.bean.EmpSalary">
+        update emp_salary
+        <set>
+            <if test="year != null">
+                year = #{year,jdbcType=VARCHAR},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=CHAR},
+            </if>
+            <if test="wagesJob != null">
+                wages_job = #{wagesJob,jdbcType=VARCHAR},
+            </if>
+            <if test="allowance != null">
+                allowance = #{allowance,jdbcType=INTEGER},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=INTEGER},
+            </if>
+            <if test="award != null">
+                award = #{award,jdbcType=INTEGER},
+            </if>
+            <if test="fine != null">
+                fine = #{fine,jdbcType=INTEGER},
+            </if>
+            <if test="realWages != null">
+                real_wages = #{real_wages,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
